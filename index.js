@@ -150,11 +150,10 @@ function sendHelp(bot) {
       '4. **me**  (show your personal info) \n' +
       '5. **space**  (show information about this group) \n' +
       '6. **help**  (what you are reading now) \n\n' +
-      'How can I help you? \n' +
-      'i.e. Type (1) or "COVID-19 Offerings"\n');
+      'How can I help you?');
 }
 
-framework.hears(/(1)|COVID-19 Offerings|/i, function (bot) {
+framework.hears(/COVID-19 Offerings|/i, function (bot) {
     responded = true;
     let outputString = `Here are the current offerings for COVID-19: \n\n` +
         `1. Offering 1\n` +
@@ -165,22 +164,22 @@ framework.hears(/(1)|COVID-19 Offerings|/i, function (bot) {
         .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
 
-framework.hears(/(2)|(what is|what's) a workshop|/i, function (bot) {
+framework.hears(/(what is|what's) a workshop|/i, function (bot) {
     responded = true;
-    let outputString = `A workshop is a single, short (although short may mean anything from 45 minutes to two full days) educational program designed to teach or introduce to participants practical skills, techniques, or ideas which they can then use in their work or their daily lives. Most workshops have several features in common:
-    - They're generally small, usually from 6 to 15 participants, allowing everyone some personal attention and the chance to be heard.
-    - They're often designed for people who are working together, or working in the same field.
-    - They're conducted by people who have real experience in the subject under discussion.
-    - They're often participatory, i.e. participants are active, both in that they influence the direction of the workshop and also in that they have a chance to practice the techniques, skills, etc. that are under discussion.
-    - They're informal; there's a good deal of discussion in addition to participation, rather than just a teacher presenting material to be absorbed by attentive students.
-    - They're time limited, often to a single session, although some may involve multiple sessions over a period of time (e.g. once a week for four weeks, or two full-day sessions over a weekend).
-    - They're self-contained. Although a workshop may end with handouts and suggestions for further reading or study for those who are interested, the presentation is generally meant to stand on its own, unlike a course, which depends on large amounts of reading and other projects (papers, presentations) in addition to classroom activities.`;
+    let outputString = `A workshop is a single, short (although short may mean anything from 45 minutes to two full days) educational program designed to teach or introduce to participants practical skills, techniques, or ideas which they can then use in their work or their daily lives. Most workshops have several features in common: \n`+
+        `- They're generally small, usually from 6 to 15 participants, allowing everyone some personal attention and the chance to be heard. \n`+
+        `- They're often designed for people who are working together, or working in the same field. \n`+
+        `- They're conducted by people who have real experience in the subject under discussion. \n`+
+        `- They're often participatory, i.e. participants are active, both in that they influence the direction of the workshop and also in that they have a chance to practice the techniques, skills, etc. that are under discussion. \n`+
+        `- They're informal; there's a good deal of discussion in addition to participation, rather than just a teacher presenting material to be absorbed by attentive students. \n`+
+        `- They're time limited, often to a single session, although some may involve multiple sessions over a period of time (e.g. once a week for four weeks, or two full-day sessions over a weekend). \n` +
+        ` - They're self-contained. Although a workshop may end with handouts and suggestions for further reading or study for those who are interested, the presentation is generally meant to stand on its own, unlike a course, which depends on large amounts of reading and other projects (papers, presentations) in addition to classroom activities.`;
     console.log(outputString);
     bot.say("markdown", outputString)
         .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
 
-framework.hears(/(3)|schedule a workshop|how long is a workshop/i, function (bot, trigger) {
+framework.hears(/|schedule a workshop|how long is a workshop/i, function (bot, trigger) {
     // This will fire for any input so only respond if we haven't already
     if (!responded) {
         bot.say(`I am sorry but "${trigger.text}" is under construction.`)

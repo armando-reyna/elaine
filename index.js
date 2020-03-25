@@ -29,7 +29,7 @@ framework.on('spawn', (bot, id, actorId) => {
   } else {
     // When actorId is present it means someone added your bot got added to a new space
     let botName = bot.person.displayName;
-    var msg = 'My name is '+botName+', you can say `list` or `help` to get a list of things I can help with.';
+    var msg = 'My name is '+botName+', you can say `hi @Elaine` or `help me @Elaine` to get a list of things I can help with.';
     bot.webex.people.get(actorId).then((user) => {
       msg = `Hello ${user.displayName}. ${msg}`;
     }).catch((e) => {

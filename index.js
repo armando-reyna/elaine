@@ -51,10 +51,11 @@ framework.on('spawn', (bot, id, actorId) => {
 //Process incoming messages
 
 let responded = false;
+
 /* On mention with command
 ex User enters @botname help, the bot will write back in markdown
 */
-framework.hears(/Elaine|list|help|what can i (do|say)|what (can|do) you do/i, function (bot, trigger) {
+framework.hears(/Elaine|list|help|6|what can i (do|say)|what (can|do) you do/i, function (bot, trigger) {
   responded = true;
   bot.say(`Hello ${trigger.person.displayName}.`)
       .then(() => sendHelp(bot))
@@ -144,13 +145,50 @@ framework.hears(/.*/, function (bot, trigger) {
 function sendHelp(bot) {
   bot.say("markdown", 'These are the things I can help with:', '\n\n ' +
       '1. **COVID-19 Offerings**   (learn more about Sentinel\'s offerings for COVID-19) \n' +
-      '2. **Workshop details**  (information available for workshops) \n' +
+      '2. **Workshop details**  (you can ask things like "What is a workshop?" or "How long is a workshop?") \n' +
       '3. **Schedule a workshop**  \n' +
-      '3. **me**  (show your personal info)\n' +
-      '3. **space**  (show information about this group)\n' +
-      '3. **help**  (what you are reading now)\n' +
-      'How can I help you?');
+      '4. **me**  (show your personal info) \n' +
+      '5. **space**  (show information about this group) \n' +
+      '6. **help**  (what you are reading now) \n\n' +
+      'How can I help you? \n' +
+      'i.e. Type (1) or "COVID-19 Offerings"\n');
 }
+
+framework.hears(/(1)|COVID-19 Offerings|/i, function (bot) {
+    responded = true;
+    let outputString = `Here are the current offerings for COVID-19: \n\n` +
+        `1. Offering 1\n` +
+        `2. Offering 2\n` +
+        `3. Offering 3\n`;
+    console.log(outputString);
+    bot.say("markdown", outputString)
+        .catch((e) => console.error(`bot.say failed: ${e.message}`));
+});
+
+framework.hears(/(2)|(what is|what's) a workshop|/i, function (bot) {
+    responded = true;
+    let outputString = `A workshop is a single, short (although short may mean anything from 45 minutes to two full days) educational program designed to teach or introduce to participants practical skills, techniques, or ideas which they can then use in their work or their daily lives. Most workshops have several features in common:
+    - They're generally small, usually from 6 to 15 participants, allowing everyone some personal attention and the chance to be heard.
+    - They're often designed for people who are working together, or working in the same field.
+    - They're conducted by people who have real experience in the subject under discussion.
+    - They're often participatory, i.e. participants are active, both in that they influence the direction of the workshop and also in that they have a chance to practice the techniques, skills, etc. that are under discussion.
+    - They're informal; there's a good deal of discussion in addition to participation, rather than just a teacher presenting material to be absorbed by attentive students.
+    - They're time limited, often to a single session, although some may involve multiple sessions over a period of time (e.g. once a week for four weeks, or two full-day sessions over a weekend).
+    - They're self-contained. Although a workshop may end with handouts and suggestions for further reading or study for those who are interested, the presentation is generally meant to stand on its own, unlike a course, which depends on large amounts of reading and other projects (papers, presentations) in addition to classroom activities.`;
+    console.log(outputString);
+    bot.say("markdown", outputString)
+        .catch((e) => console.error(`bot.say failed: ${e.message}`));
+});
+
+framework.hears(/(3)|schedule a workshop|how long is a workshop/i, function (bot, trigger) {
+    // This will fire for any input so only respond if we haven't already
+    if (!responded) {
+        bot.say(`I am sorry but "${trigger.text}" is under construction.`)
+            .then(() => sendHelp(bot))
+            .catch((e) => console.error(`Problem in the unexepected command hander: ${e.message}`));
+    }
+    responded = false;
+});
 
 
 //Server config & housekeeping

@@ -55,7 +55,7 @@ let responded = false;
 /* On mention with command
 ex User enters @botname help, the bot will write back in markdown
 */
-framework.hears(/Elaine|list|help|6|what can i (do|say)|what (can|do) you do/i, function (bot, trigger) {
+framework.hears(/hi|list|help|help me|what can i (do|say)|what (can|do) you do/i, function (bot, trigger) {
   responded = true;
   bot.say(`Hello ${trigger.person.displayName}.`)
       .then(() => sendHelp(bot))

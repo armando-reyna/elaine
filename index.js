@@ -136,7 +136,7 @@ function sendHelp(bot) {
         '4. **me**  (show your personal info) \n' +
         '5. **space**  (show information about this group) \n' +
         '6. **help**  (what you are reading now) \n\n' +
-        'How can I help you? \n' +
+        'How can I help you? \n\n' +
         'Don\'t forget, in order for me to see your messages, be sure to *@mention* Elaine.');
 }
 

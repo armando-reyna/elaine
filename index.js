@@ -65,7 +65,7 @@ framework.hears(/hi|list|help|help me|what can i (do|say)|what (can|do) you do/i
 /* On mention with bot data
 ex User enters @botname 'space' phrase, the bot will provide details about that particular space
 */
-framework.hears('space', function (bot) {
+framework.hears('this space', function (bot) {
     responded = true;
     let roomTitle = bot.room.title;
     let spaceID = bot.room.id;
@@ -119,7 +119,7 @@ let cardJSON =
 /* On mention with card example
 ex User enters @botname 'me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
 */
-framework.hears('me', function (bot, trigger) {
+framework.hears('my info', function (bot, trigger) {
     responded = true;
     let avatar = trigger.person.avatar;
     cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
@@ -133,8 +133,8 @@ function sendHelp(bot) {
         '1. **COVID-19 Offerings**   (learn more about Sentinel\'s offerings for COVID-19) \n' +
         '2. **Workshop details**  (you can ask things like "What is a workshop?" or "How long is a workshop?") \n' +
         '3. **Schedule a workshop**  \n' +
-        '4. **me**  (show your personal info) \n' +
-        '5. **space**  (show information about this group) \n' +
+        '4. **my info**  (show your personal info) \n' +
+        '5. **this space**  (show information about this group) \n' +
         '6. **help**  (what you are reading now) \n\n' +
         'How can I help you? \n\n' +
         'Don\'t forget, in order for me to see your messages, be sure to *@mention* Elaine.');
@@ -146,7 +146,6 @@ framework.hears(/COVID|COVID-19|COVID-19 Offerings/i, function (bot) {
         `1. Offering 1\n` +
         `2. Offering 2\n` +
         `3. Offering 3\n`;
-    console.log(outputString);
     bot.say("markdown", outputString)
         .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
@@ -161,7 +160,6 @@ framework.hears(/(what is|what's) a workshop/i, function (bot) {
         `- They're informal; there's a good deal of discussion in addition to participation, rather than just a teacher presenting material to be absorbed by attentive students. \n` +
         `- They're time limited, often to a single session, although some may involve multiple sessions over a period of time (e.g. once a week for four weeks, or two full-day sessions over a weekend). \n` +
         ` - They're self-contained. Although a workshop may end with handouts and suggestions for further reading or study for those who are interested, the presentation is generally meant to stand on its own, unlike a course, which depends on large amounts of reading and other projects (papers, presentations) in addition to classroom activities.`;
-    console.log(outputString);
     bot.say("markdown", outputString)
         .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
@@ -171,6 +169,13 @@ framework.hears(/schedule a workshop|how long is a workshop/i, function (bot, tr
     bot.say(`I am sorry but "${trigger.text}" is under construction.`)
         .then(() => sendHelp(bot))
         .catch((e) => console.error(`Problem in the unexepected command hander: ${e.message}`));
+});
+
+framework.hears(/thanks|thank's|thank you/i, function (bot, trigger) {
+    responded = true;
+    let outputString = `You are welcome ${trigger.person.displayName}, ping me again if you need help please.`;
+    bot.say("markdown", outputString)
+        .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
 
 /* On mention with unexpected bot command

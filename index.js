@@ -140,7 +140,7 @@ function sendHelp(bot) {
         'Don\'t forget, in order for me to see your messages, be sure to *@mention* Elaine.');
 }
 
-framework.hears(/COVID-19|COVID-19 Offerings/i, function (bot) {
+framework.hears(/COVID|COVID-19|COVID-19 Offerings/i, function (bot) {
     responded = true;
     let outputString = `Here are the current offerings for COVID-19: \n\n` +
         `1. Offering 1\n` +

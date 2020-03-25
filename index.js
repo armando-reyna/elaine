@@ -150,10 +150,11 @@ function sendHelp(bot) {
       '4. **me**  (show your personal info) \n' +
       '5. **space**  (show information about this group) \n' +
       '6. **help**  (what you are reading now) \n\n' +
-      'How can I help you?');
+      'How can I help you? \n' +
+      'Don\'t forget, in order for me to see your messages, be sure to *@mention* Elaine.');
 }
 
-framework.hears(/COVID-19 Offerings/, function (bot) {
+framework.hears(/COVID-19|COVID-19 Offerings/i, function (bot) {
     responded = true;
     let outputString = `Here are the current offerings for COVID-19: \n\n` +
         `1. Offering 1\n` +
@@ -164,7 +165,7 @@ framework.hears(/COVID-19 Offerings/, function (bot) {
         .catch((e) => console.error(`bot.say failed: ${e.message}`));
 });
 
-framework.hears(/(what is|what's) a workshop/, function (bot) {
+framework.hears(/(what is|what's) a workshop/i, function (bot) {
     responded = true;
     let outputString = `A workshop is a single, short (although short may mean anything from 45 minutes to two full days) educational program designed to teach or introduce to participants practical skills, techniques, or ideas which they can then use in their work or their daily lives. Most workshops have several features in common: \n`+
         `- They're generally small, usually from 6 to 15 participants, allowing everyone some personal attention and the chance to be heard. \n`+

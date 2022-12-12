@@ -23,7 +23,7 @@
   "homepage": "https://github.com/tbd/webexbotstarter#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "webex-node-bot-framework": "^1.0.5"
   }
 }
